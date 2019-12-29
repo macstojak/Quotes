@@ -1,5 +1,6 @@
 const fs = require("fs");
-let quotesRestore  = require("./quotesRead")
+let quotesRestore  = require("./quotesRead");
+const errorHandler = require("./errorHandler");
 module.exports={
     
     command: "delete",
@@ -7,15 +8,14 @@ module.exports={
     handler: (argv) => {
         quotesRestore()
         .then(function(data){
-           
+            
             let quotes = data;
             let id = argv.id;
-            console.log(id)
             let chosenQuote = quotes.map(el=>{return el.id}).indexOf(`${id}`)
-           quotes.splice(chosenQuote, 1)
-            fs.writeFile("./quotes.json", JSON.stringify(quotes), err=>{console.log(err)})
+            quotes.splice(chosenQuote, 1)
+            fs.writeFile("./quotes.json", JSON.stringify(quotes), err=>{errorHandler(err)})
         })
-        .catch(error=>{console.log(error)})
+        .catch(error=>{errorHandler(error)})
         
        
     },

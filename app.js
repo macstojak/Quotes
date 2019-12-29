@@ -11,17 +11,18 @@
 
 //PROGRAM DO CYTATÓW:
 //1. Funkcje programu to: 
-// - dodawanie, edycja i usuwanie cytatów
+// - dodawanie, edycja i usuwanie cytatów - ZROBIONE
 // - licznik wyświetleń cytatu (losowego) - ZROBIONE
 // - losowe wyświetlanie cytatu - ZROBIONE
 // - grupowanie cytatów wg kategorii
 // - filtr: grupa cytatów
-// - wyświetlenie losowego cytatu z serwera 
+// - wyświetlenie losowego cytatu z serwera - ZROBIONE
 //2. Dane obiektu: ID rekordu(unikalne), autor sentencji oraz jej treść i kategoria - ZROBIONE
 //3. Moduły:
 // - yargs - tworzenie komend, help oraz pobieranie argumentów za pomocą argv, 
 // - fs - wczytywanie i zapis danych do pliku records.json - ZROBIONE
 // - uniqid - generator losowych kluczy id - ZROBIONE
+
 
 const yargs = require("yargs");
 const addQuote = require("./add.js");

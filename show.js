@@ -1,8 +1,8 @@
 const fs = require("fs");
-const quotesRestore  = require("./quotesRead")
-const writeFile = require('./quotesWrite')
-const quoteServerRead = require("./quoteServerRead")
-
+const quotesRestore  = require("./quotesRead");
+const writeFile = require('./quotesWrite');
+const quoteServerRead = require("./quoteServerRead");
+const erroHandler = require("./errorHandler");
 module.exports={
     
     command: "show",
@@ -13,7 +13,7 @@ module.exports={
             .then(serverResponse=>{
                 console.log(`Quote from the server: \n"${serverResponse.quote}"\nwritten by: ${serverResponse.author}`)
             })
-            .catch(err=>{console.log(err)})
+            .catch(err=>{errorHandler(err)})
         }else if(argv.database){
         quotesRestore()
         .then(function(data){
@@ -27,7 +27,7 @@ module.exports={
                 writeFile(new Array, quotes);
             
         })
-        .catch(error=>{return error})
+        .catch(error=>{erroHandler(error)})
     }
        
     },

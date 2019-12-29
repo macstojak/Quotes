@@ -2,6 +2,7 @@ const fs = require("fs");
 const uniqeId = require("uniqid");
 const data = require("./quotesRead")
 const writeFile = require("./quotesWrite");
+const errorHandler = require("./errorHandler")
 module.exports={
     command: 'add <author> <quote> [genre]',
     desc: 'add new quote to the list',
@@ -18,16 +19,21 @@ module.exports={
       let quotesTable = [];
       let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, "counter": counter};
 
-      fs.exists("quotes.json", exists=>{
-          if(exists){
+      fs.open("quotes.json", "wx", (err,fd)=>{
+          if(fd){
                 data()
                 .then((returnTable)=>{
                    writeFile(returnTable, jsonData)
                 })
-                .catch(err=>console.log(err))
+                .catch(error=>errorHandler(error))
           
-          }else if(!exists){
-            writeFile(quotesTable, jsonData)
+          }else if(err){
+              if(err.code==="EEXIST"){
+                writeFile(quotesTable, jsonData)
+              }else{
+                  errorHandler(err)
+              }
+           
           }
       })
       
