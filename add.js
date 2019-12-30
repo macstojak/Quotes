@@ -18,27 +18,7 @@ module.exports={
       }
       let quotesTable = [];
       let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, "counter": counter};
-
-      fs.open("quotes.json", "wx", (err,fd)=>{
-          if(fd){
-                data()
-                .then((returnTable)=>{
-                   writeFile(returnTable, jsonData)
-                })
-                .catch(error=>errorHandler(error))
-          
-          }else if(err){
-              if(err.code==="EEXIST"){
-                writeFile(quotesTable, jsonData)
-              }else{
-                  errorHandler(err)
-              }
-           
-          }
-      })
       
-
-     
     },
     builder: (yargs) => {
         yargs

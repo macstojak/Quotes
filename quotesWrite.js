@@ -1,16 +1,16 @@
 const fs = require("fs");
+const errorHandler = require("./errorHandler");
 
 function Write(returnTable, jsonData){
-    const data =  new Promise((resolve, reject)=>{
-        if(resolve){
-        returnTable.push(jsonData);
-        fs.writeFile("quotes.json", JSON.stringify(returnTable), err=>{console.log(err)})
-        }
-        else{
-            reject("Can't write file");
-        }
-    })
-    return data;
+    let table;
+    console.log(returnTable)
+    if(!!returnTable){
+    table = JSON.parse(returnTable);
+    }else{
+        table=[];
+    }
+        table.push(jsonData);
+        fs.writeFile("quotes.json", JSON.stringify(table), err=>{errorHandler(err)})
 }
 
 module.exports = Write;

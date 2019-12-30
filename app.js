@@ -11,11 +11,12 @@
 
 //PROGRAM DO CYTATÓW:
 //1. Funkcje programu to: 
-// - dodawanie, edycja i usuwanie cytatów - ZROBIONE
+// - dodawanie i usuwanie cytatów - ZROBIONE
 // - licznik wyświetleń cytatu (losowego) - ZROBIONE
 // - losowe wyświetlanie cytatu - ZROBIONE
-// - grupowanie cytatów wg kategorii
-// - filtr: grupa cytatów
+// - wyświetlenie listy cytatów - ! 
+// - grupowanie cytatów wg kategorii - ! 
+// - filtr: grupa cytatów - !
 // - wyświetlenie losowego cytatu z serwera - ZROBIONE
 //2. Dane obiektu: ID rekordu(unikalne), autor sentencji oraz jej treść i kategoria - ZROBIONE
 //3. Moduły:
