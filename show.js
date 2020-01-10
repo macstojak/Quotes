@@ -1,4 +1,4 @@
-const fs = require("fs");
+
 const quotesRestore  = require("./quotesRead");
 const writeFile = require('./quotesWrite');
 const quoteServerRead = require("./quoteServerRead");
@@ -8,43 +8,39 @@ module.exports={
     description:"show random quotes",
     handler: async (argv) => {
         if(argv.random){
-            quoteServerRead()
-            .then(serverResponse=>{
-                console.log(`Quote from the server: \n"${serverResponse.quote}"\nwritten by: ${serverResponse.author}`)
-            })
-            .catch(err=>{errorHandler(err)})
-        }else if(argv.database || argv.list){
-                       
-        const result = quotesRestore();
-        try{
-        let data = await result;
-        console.log(data)
-        }catch(error){
-            if(error.code === "ENOENT"){
-                //plik NIE ISTNIEJE, stwórz go
-                console.log("no such file exists")
-            }else{
-                errorHandler(data); 
+            try{
+            const serverResponse = await quoteServerRead()
+            console.log(`Quote from the server: \n"${serverResponse.quote}"\nwritten by: ${serverResponse.author}`)
+            }catch(error){
+                errorHandler(error)
             }
-        }
-    // if(data instanceof Error){
-        
-    // }else{
-    //    //plik istnieje i dane się wczytały
-        
-    //     let quotes = JSON.parse(data);
-    //     if(argv.list){
-    //         console.log("Quotes list: ", quotes)
-    //     }else{
-    //         let quoteNumber = Math.floor(Math.random()*quotes.length);
-    //         let {id, author, genre, quote, counter} = quotes[quoteNumber]
-    //         counter += 1;
-    //         console.log("Random quote'",quote, "', by author:",author,", seen", counter, "times.")
-    //         let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, counter:counter};
-    //         quotes[quoteNumber] = jsonData;
-    //         writeFile(new Array, quotes);
-    //     }
-    // }
+        }else if(argv.database || argv.list){
+            try{        
+            const result = await quotesRestore();
+            let quotes = result;
+            if(argv.list){
+                quotes.forEach(quoteInstance=>{
+                    let {quote, author, genre, counter} = quoteInstance;
+                    console.log(`'${quote}', written by ${author}, from the category - ${genre}. Seen ${counter} times.`);
+                })
+             
+            }else{
+                let quoteNumber = Math.floor(Math.random()*quotes.length);
+                let {id, author, genre, quote, counter} = quotes[quoteNumber];
+                counter += 1;
+                console.log("Random quote'",quote, "', by author:",author,", seen", counter, "times.")
+                let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, counter: counter};
+                quotes[quoteNumber] = jsonData;
+                writeFile(quotes, jsonData);
+            }
+            }catch(error){
+                if(error.code === "ENOENT"){
+                    //plik NIE ISTNIEJE, stwórz go
+                    console.log("There is no database records. Add some quotes first.")
+                }else{
+                    errorHandler(error); 
+                }
+            }
 }               
     },
     builder: (yargs)=>{

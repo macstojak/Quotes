@@ -1,12 +1,12 @@
 const fs = require("fs");
 const uniqeId = require("uniqid");
-const data = require("./quotesRead")
+const quotesRead = require("./quotesRead")
 const writeFile = require("./quotesWrite");
 const errorHandler = require("./errorHandler")
 module.exports={
     command: 'add <author> <quote> [genre]',
     desc: 'add new quote to the list',
-    handler: (argv) => {
+    handler: async (argv) => {
       let id = uniqeId();
       id.toString();
       let author = argv.author;
@@ -16,9 +16,23 @@ module.exports={
       if(argv.genre){
       genre = argv.genre;
       }
-      let quotesTable = [];
-      let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, "counter": counter};
       
+      let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, "counter": counter};
+      try{
+        let quotesTable = await quotesRead();
+        writeFile(quotesTable, jsonData);
+        console.log("New quote saved to file quotes.json")  
+      }
+      catch(error){
+        if(error.code==="ENOENT"){
+            writeFile(new Array(), jsonData);
+            console.log("New quote saved to file quotes.json")
+        }else{
+            errorHandler(error);
+        }
+      }
+     
+   
     },
     builder: (yargs) => {
         yargs

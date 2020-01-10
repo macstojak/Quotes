@@ -17,7 +17,9 @@ function errorHandler(error){
             case Error:
                 console.log(error.msg)
                 break;
-            
+            default:
+                console.log(error)
+                break;
         }
 }
 module.exports= errorHandler;
