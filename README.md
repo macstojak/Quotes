@@ -13,7 +13,6 @@ General commands:
 ```
 
 Parameters:
-```
 1.	add 
 * add author of a quote, - add sentence, [category] - optional: add category of a quote
 2.	show 
@@ -22,4 +21,4 @@ Parameters:
 * --random, -r - show random quote from the server
 3.	group 
 * --category=[category], -c - show quotes of specified category
-```
+
