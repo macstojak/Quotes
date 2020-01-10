@@ -25,7 +25,8 @@ module.exports={
         })
         }else{
         try{
-        const categories = await [...new Set(result.map(el=>el.category))]
+        // stwórz tabelę samych istniejących kategorii
+        const categories =  await result.map(el=>el.category)
         categories.forEach(cat=>{
             console.log("----------------")
             console.log("Category:", cat)
