@@ -14,7 +14,9 @@ General commands:
 
 Parameters:
 1.	add 
-* add author of a quote, - add sentence, [category] - optional: add category of a quote
+* <author> add author of a quote, 
+* <quote> - add sentence, 
+* [category] - optional: add category of a quote
 2.	show 
 * --list, -l - show list of all quotes from your database 
 * --database, -d - show random generated quote from database 
