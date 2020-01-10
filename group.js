@@ -5,6 +5,7 @@ module.exports={
     description:"show group of quotes",
     handler: async (argv) => {
         let result;
+        let quote;
         try{        
             result = await quotesRestore();
             }catch(error){
@@ -15,23 +16,23 @@ module.exports={
                 errorHandler(error); 
             }
         }   
-        let quote;
+      
      if(argv.category){
-        quote = result.filter(el=> el.genre===argv.category)
-        console.log("Quotes of the category: ", argv.category)
+        quote = result.filter(el=> el.category===argv.category)
+        console.log("Quotes of the specified category: ", argv.category)
         quote.forEach((q, i)=>{
-            console.log("Quote nr'",i+1,q.quote, "', by author:",q.author,", seen", q.counter, "times. Genre:", q.genre)
+            console.log("Quote nr'",i+1,q.quote, "', by author:",q.author,", seen", q.counter, "times. category:", q.category)
         })
         }else{
         try{
-        const categories = await [...new Set(result.map(el=>el.genre))]
+        const categories = await [...new Set(result.map(el=>el.category))]
         categories.forEach(cat=>{
             console.log("----------------")
             console.log("Category:", cat)
             console.log("----------------")
             result.forEach((q,i)=>{
-                if(q.genre===cat){
-                    console.log("Quote nr",i+1,"'",q.quote, "', by author:",q.author,", seen", q.counter, "times. Genre:", q.genre)
+                if(q.category===cat){
+                    console.log("Quote nr",i+1,"'",q.quote, "', by author:",q.author,", seen", q.counter, "times. Category:", q.category)
                 }
             })
         })
@@ -44,8 +45,9 @@ module.exports={
         yargs
         .positional("--category",{
             alias: "-c",
-            description: "group quotes by category"
+            description: "show quotes by specified category"
         })
+       
     }
     
 }

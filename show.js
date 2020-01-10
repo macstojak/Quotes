@@ -20,16 +20,16 @@ module.exports={
             let quotes = result;
             if(argv.list){
                 quotes.forEach(quoteInstance=>{
-                    let {quote, author, genre, counter} = quoteInstance;
-                    console.log(`'${quote}', written by ${author}, from the category - ${genre}. Seen ${counter} times.`);
+                    let {quote, author, category, counter} = quoteInstance;
+                    console.log(`'${quote}', written by ${author}, from the category - ${category}. Seen ${counter} times.`);
                 })
              
             }else{
                 let quoteNumber = Math.floor(Math.random()*quotes.length);
-                let {id, author, genre, quote, counter} = quotes[quoteNumber];
+                let {id, author, category, quote, counter} = quotes[quoteNumber];
                 counter += 1;
                 console.log("Random quote'",quote, "', by author:",author,", seen", counter, "times.")
-                let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, counter: counter};
+                let jsonData = {"id": id, "quote": quote, "author": author, "category": category, counter: counter};
                 quotes[quoteNumber] = jsonData;
                 writeFile(quotes, jsonData);
             }
@@ -59,7 +59,7 @@ module.exports={
         })
         .positional("--group",{
             alias: "-g",
-            description: "group quotes by genre"
+            description: "group quotes by category"
         })
     }
     

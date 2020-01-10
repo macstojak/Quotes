@@ -4,20 +4,20 @@ const quotesRead = require("./quotesRead")
 const writeFile = require("./quotesWrite");
 const errorHandler = require("./errorHandler")
 module.exports={
-    command: 'add <author> <quote> [genre]',
+    command: 'add <author> <quote> [category]',
     desc: 'add new quote to the list',
     handler: async (argv) => {
       let id = uniqeId();
       id.toString();
       let author = argv.author;
       let quote = argv.quote;
-      let genre = "none";
+      let category = "none";
       let counter=0;
-      if(argv.genre){
-      genre = argv.genre;
+      if(argv.category){
+      category = argv.category;
       }
       
-      let jsonData = {"id": id, "quote": quote, "author": author, "genre": genre, "counter": counter};
+      let jsonData = {"id": id, "quote": quote, "author": author, "category": category, "counter": counter};
       try{
         let quotesTable = await quotesRead();
         writeFile(quotesTable, jsonData);
@@ -44,8 +44,8 @@ module.exports={
             describe: "quote of the author",
             type: "string"
         })
-        .positional("[genre]",{
-            describe: "genre of a quote",
+        .positional("[category]",{
+            describe: "category of a quote",
             type: "string",
             default:""
         })
