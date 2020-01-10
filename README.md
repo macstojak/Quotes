@@ -14,7 +14,12 @@ General commands:
 
 Parameters:
 ```
-1.	add - add author of a quote, - add sentence, [category] - optional: add category of a quote
-2.	show --list, -l - show list of all quotes from your database --database, -d - show random generated quote from database --random, -r - show random quote from the server
-3.	group --category=[category], -c - show quotes of specified category
+1.	add 
+* add author of a quote, - add sentence, [category] - optional: add category of a quote
+2.	show 
+* --list, -l - show list of all quotes from your database 
+* --database, -d - show random generated quote from database 
+* --random, -r - show random quote from the server
+3.	group 
+* --category=[category], -c - show quotes of specified category
 ```
